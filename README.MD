@@ -1,40 +1,80 @@
+# Website Generator Application
 
-1. Install `virtualenv` if it's not installed already:
+This Website Generator Application allows users to generate a simple HTML and CSS code pair based on a text brief. Users input a brief and the application uses OpenAI's GPT-3 model to generate the content. It provides a live preview of the generated website in both mobile and desktop views.
 
-```bash
-pip install virtualenv
+## Structure
+
+The application is structured as follows:
+
+```
+.
+├── app.py
+├── generator.py
+├── file_handler.py
+├── main.py
+├── venv (optional)
+├── templates
+│   └── index.html
+└── static
+    └── generated
+        └── preview
+            ├── index.html
+            └── styles.css
 ```
 
-2. Create a virtual environment in your project's root directory:
+## Files and Functionalities
 
-```bash
-virtualenv venv
-```
+### `app.py`
 
-3. Activate the virtual environment:
+This file contains the main Flask application setup and routing. The application defines a single route `/` with methods `GET` and `POST`. 
 
-- On Mac/Linux:
+When generating a website, the app receives a brief (`POST`), generates the HTML and CSS files for the website, and then stores the files in the `'static/generated/preview/'` folder. The preview URL is passed to the `index.html` template to display the generated website within an iframe in both mobile and desktop views.
 
-```bash
-source venv/bin/activate
-```
+### `generator.py`
 
-- On Windows:
+This file contains the functions for generating the HTML and CSS content using OpenAI's GPT-3. The `generate_html_css` function accepts a text brief and queries GPT-3 to generate the HTML and CSS content. The result is returned as a tuple containing the HTML and CSS code as strings.
 
-```bash
-.\venv\Scripts\activate
-```
+### `file_handler.py`
 
-4. Now, install the required packages in the virtual environment:
+This file contains a single function, `save_to_file`, for saving content to a file. The function accepts the filename, content, and an optional subdirectory. The content is saved to the specified file, optionally within the subdirectory.
 
-```bash
-pip install Flask openai python-dotenv
-```
+### `main.py`
 
-5. Run your Flask app in the virtual environment:
+This file is responsible for the main logic of generating the website files. The `generate_website_files` function takes a brief as input and calls the `generate_html_css` function from `generator.py` to produce the HTML and CSS code. 
 
-```bash
-python app.py
-```
+Then, the `save_to_file` function from `file_handler.py` is used to save the content to files in the `'static/generated/preview/'` folder. This folder is used to serve the generated files in a preview iframe.
 
-By using a virtual environment, you can ensure that the required packages are installed in the correct environment, and it won't interfere with your system's or other projects' dependencies.
+### `templates/index.html`
+
+This is the main frontend template for the Website Generator. It contains a form to accept the brief input from the users and shows the mobile and desktop previews of the generated website using iframes.
+
+A button labeled "Switch to desktop view" or "Switch to mobile view" is used to toggle between mobile and desktop previews using JavaScript.
+
+### `static/generated/preview/`
+
+This folder contains the generated `index.html` and `styles.css` files. The files are served by Flask's static file handler, making it possible to display the preview of the generated website within iframes in the `index.html` template.
+
+## How to Run the Program
+
+1. Create a virtual environment (optional) and activate it:
+   - `pip install virtualenv`
+   - `virtualenv venv`
+   - `source venv/bin/activate` (Mac/Linux) or `.\venv\Scripts\activate` (Windows)
+
+2. Install the required dependencies:
+   - `pip install Flask openai python-dotenv`
+
+3. Run the Flask application:
+   - `python app.py`
+
+4. Visit the URL `http://127.0.0.1:5000/` in a web browser to access the Website Generator page.
+
+## Generating Website Previews
+
+1. Enter a brief for the website in the textarea on the Website Generator page.
+2. Click the "Generate Website" button.
+3. The generated website preview will be displayed in a mobile-sized container.
+4. Click the "Switch to desktop view" button to toggle between mobile and desktop previews.
+
+## Example Brief Promt
+"A nature-friendly, eco-conscious boutique hotel chain with properties in stunning locations surrounded by nature. The website should showcase their commitment to sustainability and the unique experiences they provide for guests in a clean, modern design. Use image from https://source.unsplash.com/300x300/?hotel" alt="Random Hotel Image depending on the subject of the website"

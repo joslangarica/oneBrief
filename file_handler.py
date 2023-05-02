@@ -1,10 +1,13 @@
-def save_to_file(filename, content):
-    if not content:
-        print(f"Error: Unable to save '{filename}' as content is missing.")
-        return
-    try:
-        with open(filename, "w") as file:
-            file.write(content)
-        print(f"File '{filename}' is successfully saved.")
-    except Exception as e:
-        print(f"Error while saving file '{filename}': {e}")
+import os
+
+def save_to_file(filename, content, subdirectory=None):
+    if subdirectory is None:
+        subdirectory = "static/generated/preview/"
+
+    if not os.path.exists(subdirectory):
+        os.makedirs(subdirectory)
+        
+    file_path = os.path.join(subdirectory, filename)
+    
+    with open(file_path, 'w') as file:
+        file.write(content)
