@@ -78,3 +78,10 @@ This folder contains the generated `index.html` and `styles.css` files. The file
 
 ## Example Brief Promt
 "A nature-friendly, eco-conscious boutique hotel chain with properties in stunning locations surrounded by nature. The website should showcase their commitment to sustainability and the unique experiences they provide for guests in a clean, modern design. Use image from https://source.unsplash.com/300x300/?hotel" alt="Random Hotel Image depending on the subject of the website"
+
+## EXAMPLE 2
+ generate unique content and images for a fictional e-commerce platform, "EcoHome Essentials". The AI should develop persuasive product descriptions and display visually appealing images of sustainable home products such as eco-friendly cleaning supplies, reusable kitchenware, and energy-efficient appliances. This will help our users make informed decisions while shopping for eco-friendly home solutions.
+
+Example HTML code for random sustainable home product images (300x300):
+`<img src="https://source.unsplash.com/300x300/?sustainable-home-products" alt="Random Sustainable Home Product Image">
+
