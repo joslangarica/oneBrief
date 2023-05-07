@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, send_from_directory, url_for
 from main import generate_website_files
+import os
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
+
 
 app = Flask(__name__)
 
@@ -17,6 +21,13 @@ def index():
                 preview_available = True
 
     return render_template('index.html', preview_url=preview_url, preview_available=preview_available)
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    try:
+        return send_from_directory(os.path.join("static", "generated", "preview"), filename, as_attachment=True)
+    except Exception as e:
+        return str(e)
 
 if __name__ == '__main__':
     app.run(debug=True)
