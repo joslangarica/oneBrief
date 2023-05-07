@@ -1,10 +1,48 @@
-# Website Generator Application
+# Website Content Generator
 
-This Website Generator Application allows users to generate a simple HTML and CSS code pair based on a text brief. Users input a brief and the application uses OpenAI's GPT-3 model to generate the content. It provides a live preview of the generated website in both mobile and desktop views.
+The Website Content Generator is a Flask web application that allows users to generate a simple, responsive HTML and CSS code pair based on a text brief. The application uses OpenAI's GPT-3 model to generate the content. Users input a brief, and the application outputs a live preview of the generated website, viewable on mobile, desktop, and large desktop screen sizes.
 
-## Structure
+## Table of Contents
 
-The application is structured as follows:
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [Files and Functionalities](#files-and-functionalities)
+- [Usage Examples](#usage-examples)
+- [Contributing and Maintaining](#contributing-and-maintaining)
+
+## Getting Started
+
+To get started, clone the repository and set up a Python virtual environment:
+
+### Prerequisites
+
+1. Python 3.x
+2. Flask
+3. OpenAI
+
+### Installation
+
+```bash
+git clone https://github.com/your-repository/WebsiteContentGenerator.git
+cd WebsiteContentGenerator
+python -m venv venv
+source venv/bin/activate # For Linux and macOS
+venv\Scripts\activate # For Windows
+pip install -r requirements.txt
+```
+
+To run the application:
+
+```bash
+python app.py
+```
+
+Visit `http://127.0.0.1:5000/` in your browser to access the Website Generator page.
+
+## Project Structure
+
+The application's structure consists of the following components:
 
 ```
 .
@@ -12,37 +50,49 @@ The application is structured as follows:
 ├── generator.py
 ├── file_handler.py
 ├── main.py
-├── venv (optional)
+├── requirements.txt
+├── README.md
 ├── templates
 │   └── index.html
 └── static
+    ├── css
+    │   └── style.css
+    ├── js
+    │   └── app.js
     └── generated
         └── preview
             ├── index.html
             └── styles.css
 ```
 
+## Technologies Used
+
+- [Flask](https://flask.palletsprojects.com/): A micro web framework for Python used to build the web application.
+- [Python](https://www.python.org/): The main programming language used for the project.
+- [OpenAI GPT-3](https://beta.openai.com/): An artificial intelligence language model used to generate HTML and CSS content based on user input.
+- [HTML, CSS, and JavaScript](https://www.w3.org/standards/webdesign/htmlcss.html): Frontend languages used for designing the website template and handling user interactions.
+
 ## Files and Functionalities
 
 ### `app.py`
 
-This file contains the main Flask application setup and routing. The application defines a single route `/` with methods `GET` and `POST`. 
+This file contains the main Flask application setup and routing. The application defines a single route `/` with methods `GET` and `POST`.
 
 When generating a website, the app receives a brief (`POST`), generates the HTML and CSS files for the website, and then stores the files in the `'static/generated/preview/'` folder. The preview URL is passed to the `index.html` template to display the generated website within an iframe in both mobile and desktop views.
 
 ### `generator.py`
 
-This file contains the functions for generating the HTML and CSS content using OpenAI's GPT-3. The `generate_html_css` function accepts a text brief and queries GPT-3 to generate the HTML and CSS content. The result is returned as a tuple containing the HTML and CSS code as strings.
+This file contains the `WebsiteGenerator` class that generates HTML and CSS content based on the user's input. The class uses OpenAI's GPT-3 model to generate the content. The result is returned as a tuple containing the HTML and CSS code as strings.
 
 ### `file_handler.py`
 
-This file contains a single function, `save_to_file`, for saving content to a file. The function accepts the filename, content, and an optional subdirectory. The content is saved to the specified file, optionally within the subdirectory.
+This file contains the `FileHandler` class that handles file creation, deletion, and compression for preview and download purposes. The class is responsible for saving and managing the generated files for the website.
 
 ### `main.py`
 
-This file is responsible for the main logic of generating the website files. The `generate_website_files` function takes a brief as input and calls the `generate_html_css` function from `generator.py` to produce the HTML and CSS code. 
+This file is responsible for the main logic of generating the website files. The `generate_website_files` function takes a brief as input and calls the `generate_html_css` method from the `WebsiteGenerator` class to produce the HTML and CSS code.
 
-Then, the `save_to_file` function from `file_handler.py` is used to save the content to files in the `'static/generated/preview/'` folder. This folder is used to serve the generated files in a preview iframe.
+Then, the `save_to_file` method from the `FileHandler` class is used to save the content to the files in the `'static/generated/preview/'` folder. This folder is used to serve the generated files in a preview iframe.
 
 ### `templates/index.html`
 
@@ -54,33 +104,15 @@ A button labeled "Switch to desktop view" or "Switch to mobile view" is used to 
 
 This folder contains the generated `index.html` and `styles.css` files. The files are served by Flask's static file handler, making it possible to display the preview of the generated website within iframes in the `index.html` template.
 
-## How to Run the Program
+## Usage Examples
 
-1. Create a virtual environment (optional) and activate it:
-   - `pip install virtualenv`
-   - `virtualenv venv`
-   - `source venv/bin/activate` (Mac/Linux) or `.\venv\Scripts\activate` (Windows)
+Example 1:
 
-2. Install the required dependencies:
-   - `pip install Flask openai python-dotenv`
+Brief:
+"A nature-friendly, eco-conscious boutique hotel chain with properties in stunning locations surrounded by nature. The website should showcase their commitment to sustainability and the unique experiences they provide for guests in a clean, modern design. Use the image from https://source.unsplash.com/300x300/?hotel as an example."
 
-3. Run the Flask application:
-   - `python app.py`
-
-4. Visit the URL `http://127.0.0.1:5000/` in a web browser to access the Website Generator page.
-
-## Generating Website Previews
-
-1. Enter a brief for the website in the textarea on the Website Generator page.
-2. Click the "Generate Website" button.
-3. The generated website preview will be displayed in a mobile-sized container.
-4. Click the "Switch to desktop view" button to toggle between mobile and desktop previews.
-
-## Example Brief Promt
-"A nature-friendly, eco-conscious boutique hotel chain with properties in stunning locations surrounded by nature. The website should showcase their commitment to sustainability and the unique experiences they provide for guests in a clean, modern design. Use image from https://source.unsplash.com/300x300/?hotel" alt="Random Hotel Image depending on the subject of the website"
-
-## EXAMPLE 2
- generate unique content and images for a fictional e-commerce platform, "EcoHome Essentials". The AI should develop persuasive product descriptions and display visually appealing images of sustainable home products such as eco-friendly cleaning supplies, reusable kitchenware, and energy-efficient appliances. This will help our users make informed decisions while shopping for eco-friendly home solutions.
+Example 2:
+"Generate content and images for a fictional e-commerce platform, 'EcoHome Essentials'. The AI should develop persuasive product descriptions and display visually appealing images of sustainable home products such as eco-friendly cleaning supplies, reusable kitchenware, and energy-efficient appliances. This will help our users make informed decisions while shopping for eco-friendly home solutions."
 
 Example HTML code for random sustainable home product images (300x300):
 `<img src="https://source.unsplash.com/300x300/?sustainable-home-products" alt="Random Sustainable Home Product Image">
