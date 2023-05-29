@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Website Content Generator</h1>
+        <form method="POST">
+            <label for="brief">Enter a brief for the website:</label>
+            <textarea name="brief" placeholder="Create a website for my company ...." required></textarea>
+            <button type="submit" class="generate-btn">Generate Website</button>
+        </form>
+    </div>
+
+    {% if preview_available %}
+<div class="preview-container">
+    <h2>Website Preview</h2>
+    <button id="toggle-preview" type="button" onclick="switchPreview()" class="switch-btn">Switch to desktop view</button>
+
+    <div class="download-container">
+        <a href="{{ url_for('download_file', filename='index.html') }}" class="download-btn">Download HTML</a>
+        <a href="{{ url_for('download_file', filename='style.css') }}" class="download-btn">Download CSS</a>
+    </div>
+
+    <div class="preview-box">
+        <div class="mobile-view" id="mobile-preview">
+            <iframe src="{{ preview_url }}"></iframe>
+        </div>
+        <div class="desktop-view hidden" id="desktop-preview">
+            <iframe src="{{ preview_url }}"></iframe>
+        </div>
+        <div class="large-desktop-view hidden" id="large-desktop-preview">
+            <iframe src="{{ preview_url }}"></iframe>
+        </div>
+    </div>
+</div>
+{% endif %}
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
