@@ -1,0 +1,97 @@
+<style>
+  /* Global Styles */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Navigation */
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  /* Header */
+  .jumbotron {
+    background-image: url('https://source.unsplash.com/random?lock+background');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .jumbotron h1,
+  .jumbotron p {
+    color: #fff;
+  }
+
+  /* Sections */
+  section {
+    position: relative;
+  }
+
+  section h2 {
+    margin-bottom: 30px;
+  }
+
+  /* Intro Section */
+  #intro img {
+    border-radius: 5px;
+    margin-bottom: 30px;
+  }
+
+  /* Services Section */
+  #services .col-md-4 {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: all 0.5s ease;
+  }
+
+  #services .col-md-4:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+  }
+
+  #services img {
+    margin-bottom: 20px;
+  }
+
+  /* Gallery Section */
+  #gallery img {
+    border-radius: 5px;
+    margin-bottom: 30px;
+  }
+
+  /* Contact Section */
+  #contact form {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Footer */
+  footer {
+    font-size: 14px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 991px) {
+    #intro .row > div,
+    #services .row > div {
+      text-align: center;
+    }
+
+    #intro img,
+    #services img {
+      margin: 0 auto 30px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #intro .row > div,
+    #services .row > div {
+      margin-bottom: 30px;
+    }
+  }
+</style>
